@@ -16,7 +16,7 @@
  
   (def doggos [
     {:gender "F" :name "Missy" :type "floofer" :size "teeny" }
-    {:gender "F" :name "Billy" :type "pupper" :size "mega-pupperous"}
+    {:gender "F" :name "Billy" :type "pupper" :size "bitey"}
     {:gender "M" :name "Mixie" :type "DOGGOR" :size "teeny"}
     {:gender "F" :name "Boxer" :type "Huge Borker" :size "Mambo Jambo"}
     {:gender "M" :name "Alice" :type "Doge" :size "miny"}
@@ -29,7 +29,7 @@
 
 
   ;;;;;;;;;;; Content
-  (defn greet [doggo](str "Meet " (get doggo :name)))
+  (defn greet [doggo](str "\n Meet " (get doggo :name)))
 
   (defn specify [doggo](str (isGender doggo) " is"))
 
@@ -42,11 +42,12 @@
 
   ;;;;;;;;;;;; Output
   (println "---")
-  (def stories [(map tellAbout doggos)])
+  (def stories (map tellAbout doggos))
   (println stories)
   (println "We have")
   (def doggoTypes (distinct (map (fn[doggo](get doggo :type )) doggos)))
-  (println doggoTypes)
+  (def ourDoggos (map (fn[type](str (howMany type doggos) " " type "\n")) doggoTypes))
+  (println ourDoggos)
   (println "---")
 
 )
