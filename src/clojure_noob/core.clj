@@ -1,12 +1,6 @@
 (ns clojure-noob.core
   (:gen-class))
 
-(defn getDiscount [cost discountRate] ( * (/ discountRate 100.0) cost))
-
-(defn getAffordability [income premium]  (> (* (/ premium income) 100.0) 5))
-
-(defn filterSelectedProducts [products](filter (fn[p](get p :selected)) products))
-
 (defn bothPass [conditionFunc1 conditionFunc2 obj](and (conditionFunc1 obj) (conditionFunc2 obj)))
 
 (defn -main
@@ -18,7 +12,8 @@
   (defn isDoggor [doggo](= (get doggo :type) "DOGGOR"))
 
   (defn isGender [doggo](if (= (get doggo :gender) "F") "She" "He"))
-
+  
+ 
   (def doggos [
     {:gender "F" :name "Missy" :type "floofer" :size "teeny" }
     {:gender "F" :name "Billy" :type "pupper" :size "mega-pupperous"}
@@ -30,21 +25,28 @@
     {:gender "F" :name "Scentwell" :type "DOGGOR" :size "teeny"}
   ])
 
-  (defn describe [doggo](str "a" (get doggo :size) (get doggo :type)))
+  (defn describe [doggo](str " a " (get doggo :size) " " (get doggo :type)))
 
 
   ;;;;;;;;;;; Content
-  (defn greet [doggo](str "Meet" (get doggo :name)))
+  (defn greet [doggo](str "Meet " (get doggo :name)))
 
-  (defn specify [doggo](str (isGender doggo) "is"))
+  (defn specify [doggo](str (isGender doggo) " is"))
 
-  (defn tellAbout [doggo]((greet doggo)(specify doggo)(describe doggo)))
+  (defn tellAbout [doggo](str (greet doggo) " " (specify doggo) " " (describe doggo) "\n"))
 
+  (defn howMany 
+    [type doggos]
+      (count (filter (fn[doggo](= type (get doggo :type))) doggos))  
+  )
 
   ;;;;;;;;;;;; Output
   (println "---")
-  (def stories (map tellAbout doggos))
-  (print stories)
+  (def stories [(map tellAbout doggos)])
+  (println stories)
+  (println "We have")
+  (def doggoTypes (distinct (map (fn[doggo](get doggo :type )) doggos)))
+  (println doggoTypes)
   (println "---")
 
 )
