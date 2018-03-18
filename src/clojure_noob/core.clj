@@ -3,6 +3,11 @@
 
 (defn bothPass [conditionFunc1 conditionFunc2 obj](and (conditionFunc1 obj) (conditionFunc2 obj)))
 
+(defn select
+    [key obj]
+    (get obj key)
+)
+
 (defn -main
   "I am the three eyed price man"
   [& args]
@@ -39,13 +44,13 @@
     [type doggos]
       (count (filter (fn[doggo](= type (get doggo :type))) doggos))  
   )
-
+  
   ;;;;;;;;;;;; Output
   (println "---")
   (def stories (map tellAbout doggos))
   (println stories)
   (println "We have")
-  (def doggoTypes (distinct (map (fn[doggo](get doggo :type )) doggos)))
+  (def doggoTypes (distinct (map (partial select :type) doggos)))
   (def ourDoggos (map (fn[type](str (howMany type doggos) " " type "\n")) doggoTypes))
   (println ourDoggos)
   (println "---")
